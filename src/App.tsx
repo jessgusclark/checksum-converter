@@ -4,8 +4,8 @@ import { isValidAddress, toChecksumAddress } from 'rskjs-util'
 import './App.scss'
 
 function App () {
-  const [address, setAddress] = useState<string>('0x3Dd03d7d6c3137f1Eb7582Ba5957b8A2e26f304A')
-  const [chainId, setChainId] = useState<number>(30)
+  const [address, setAddress] = useState<string>('')
+  const [chainId, setChainId] = useState<number>(0)
   const [response, setResponse] = useState<string | null>(null)
 
   const convert = () => {
