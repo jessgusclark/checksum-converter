@@ -1,6 +1,7 @@
 {
-  "name": "rif-id-manager",
+  "name": "checksum-converter",
   "version": "0.1.0",
+  "homepage": ".",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
