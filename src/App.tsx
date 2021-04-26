@@ -1,24 +1,49 @@
-import React from 'react'
-import logo from './logo.svg'
+import React, { useState } from 'react'
+import { isValidAddress, toChecksumAddress } from 'rskjs-util'
+
 import './App.scss'
 
 function App () {
+  const [address, setAddress] = useState<string>('0x3Dd03d7d6c3137f1Eb7582Ba5957b8A2e26f304A')
+  const [chainId, setChainId] = useState<number>(30)
+  const [response, setResponse] = useState<string | null>(null)
+
+  const convert = () => {
+    console.log('convert it!')
+    if (!isValidAddress(address)) {
+      return setResponse('[ERROR] Not a valid address')
+    }
+
+    if (isNaN(chainId) && chainId.toString() !== '') {
+      return setResponse('[ERROR] ChainId must be a number, or 0')
+    }
+
+    setResponse(toChecksumAddress(address, chainId === 0 ? null : chainId))
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        Quick Checksum Converter
       </header>
+      <section>
+        <p>
+          <label>{'Address: '}
+            <input type="text" value={address} onChange={(evt) => setAddress(evt.target.value)} />
+          </label>
+        </p>
+        <p>
+          <label>{'Chain Id: '}
+            <input type="text" value={chainId} onChange={(evt) => setChainId(parseInt(evt.target.value))} />
+          </label>
+        </p>
+        <p>
+          <button onClick={convert}>Convert It!</button>
+        </p>
+      </section>
+      <section>
+        {response && <div className="response">{response}</div>}
+      </section>
     </div>
   )
 }
